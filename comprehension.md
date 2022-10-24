@@ -1,4 +1,4 @@
-##1: Qu'est-ce qu'un botnet et comment cela fonctionne
+## 1: Qu'est-ce qu'un botnet et comment cela fonctionne
 
 Un botnet est un réseau d'ordinateurs infectés par un cheval
 de troie afin généralement d'effectuer des attaques de
@@ -13,7 +13,7 @@ se copier dans le startup des clés usb etc..
 Il essayera de persister sur le système en se lançant à chaque démarrage,
 se cachant du gestionnaire des tâches par example avec un rootkit.
 
-##2: Quelles sont ces différentes formes et comment fonctionnent-elles ?
+## 2: Quelles sont ces différentes formes et comment fonctionnent-elles ?
 
 Les botnets sont généralement des réseaux centralisés avec un modèle C&C (commande et contrôle),
 la victime a des contacts fréquents avec un serveur afin de montrer qu'il est toujours
@@ -31,7 +31,7 @@ se fait entre les victimes elles-mêmes qui deviennent des noeuds, pour donner d
 à ce réseau ça peut en revanche se révéler plus compliqué mais on pourrait par exemple
 lancer une attaque DDOS seulement quand l'on reçoit un message signé par une clé PGP.
 
-##3: Qu'est-ce que Shodan et quel est le lien avec un botnet ?
+## 3: Qu'est-ce que Shodan et quel est le lien avec un botnet ?
 
 Shodan est un moteur de recherche des appareils connectés à internet, il permet de rechercher
 des types spécifiques d'appareils qui pourraient être sensibles à une certaine vulnérabilité.
