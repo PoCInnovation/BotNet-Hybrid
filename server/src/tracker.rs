@@ -1,21 +1,13 @@
-use std::{net::TcpStream, io::{Write, BufReader, BufRead, Read}};
+use std::{net::TcpStream, io::{Write, BufReader, Read}};
 
 use crate::Victim;
 
-pub fn is_victim_listening(stream: &TcpStream, victim: &Victim) -> bool {
-    let mut buf_reader = BufReader::new(stream);
+pub fn is_victim_listening(victim: &Victim) -> bool {
 
-    let mut buffer = Vec::new();
-    buf_reader.read_until(0, &mut buffer).unwrap();
-    let buffer = std::str::from_utf8(&buffer).unwrap();
-    println!("buffer: {}", buffer);
-    if buffer != "ready" {
-        return false;
-    }
     let mut stream = match TcpStream::connect(victim.ip.ip().to_string() + ":3612") {
         Ok(stream) => stream,
         Err(_) => {
-            eprintln!("Failed to connect to the client's server");
+            error!("Failed to connect to {}'s server", victim.ip);
             return false;
         }
     };
@@ -26,11 +18,11 @@ pub fn is_victim_listening(stream: &TcpStream, victim: &Victim) -> bool {
     let mut buf_reader = BufReader::new(&stream);
     let mut buffer: [u8; 1] = [0];
     if let Err(err) = buf_reader.read_exact(&mut buffer) {
-        eprintln!("Failed to connect to the client's server: {}", err);
+        error!("Failed to read from {}'s server: {}", victim.ip, err);
         return false;
     }
     if buffer != [9] {
-        eprintln!("The client's server didn't send 9 back");
+        error!("{}'s server didn't send 9 back", victim.ip);
         return false;
     }
     true
