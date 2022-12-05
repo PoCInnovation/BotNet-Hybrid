@@ -1,7 +1,7 @@
 #include <asio.hpp>
 #include <iostream>
 
-#include "poc-botnet-asio.hpp"
+#include "client.hpp"
 
 void send_data_client(asio::ip::tcp::socket &socket, std::string message, asio::error_code ec)
 {

@@ -1,9 +1,10 @@
+SRC = src/
 CLIENT = client
 SERVER = server
 BINARY = binary
 
 all:
-	g++ ${CLIENT}.cpp ${SERVER}.cpp -o ${BINARY}
+	g++ ${SRC}${CLIENT}.cpp ${SRC}${SERVER}.cpp -o ${BINARY} -I include/
 
 clean:
 	rm ${BINARY}
