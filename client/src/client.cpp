@@ -36,7 +36,7 @@ int fetch_data_client(asio::ip::tcp::socket &socket, asio::error_code ec)
 
 bool connect_client_socket(asio::ip::tcp::socket &socket, asio::error_code ec)
 {
-    asio::ip::tcp::endpoint endpoint(asio::ip::address::from_string("192.168.0.12"), 9570);
+    asio::ip::tcp::endpoint endpoint(asio::ip::address::from_string("192.168.1.57"), 9570);
 
     socket.connect(endpoint, ec);
     if (!ec) {

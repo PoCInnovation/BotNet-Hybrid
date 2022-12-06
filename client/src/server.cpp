@@ -1,12 +1,16 @@
 #include <asio.hpp>
+#include <asio/error_code.hpp>
 #include <iostream>
 
-size_t fetch_data_server(asio::ip::tcp::socket& socket)
+char fetch_data_server(asio::ip::tcp::socket& socket, asio::error_code& ec)
 {
     char buffer[1];
-    size_t bytesRead = asio::read(socket, asio::buffer(buffer, 1));
+    char bytesRead = asio::read(socket, asio::buffer(buffer, 1), ec);
 
-    return bytesRead;
+    if (!ec)
+        return bytesRead;
+    std::cout << "Error:" << ec.message() << '\n';
+    return 0;
 }
 
 void send_data_server(asio::ip::tcp::socket &socket, char *buffer)
@@ -16,19 +20,22 @@ void send_data_server(asio::ip::tcp::socket &socket, char *buffer)
 
 int server(void)
 {
+    asio::error_code ec;
     asio::io_service io_service;
     asio::ip::tcp::acceptor acceptor_server(io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), 3612));
     asio::ip::tcp::socket server_socket(io_service);
     acceptor_server.accept(server_socket);
     char sucess_buffer[1] = {9};
 
-    while (true) {
-        char response = fetch_data_server(server_socket);
+    while (true && !ec) {
+        char response = fetch_data_server(server_socket, ec);
 
         if (response == 1) {
-            std::cout << "Received: \"" << response << "\"\n";
+            std::cout << "Server received: \"" << response << "\"\n";
             send_data_server(server_socket, sucess_buffer);
         }
     }
+    server_socket.close();
+    std::cout << "Server closed";
     return 0;
 }
