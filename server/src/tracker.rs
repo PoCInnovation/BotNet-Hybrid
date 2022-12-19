@@ -11,7 +11,7 @@ pub async fn is_victim_listening(victim: &Victim) -> bool {
         }
     };
 
-    if let Err(_) = stream.write_all(&[1]).await {
+    if stream.write_all(&[1]).await.is_err() {
         return false;
     }
     let mut buf_reader = BufReader::new(&mut stream);
