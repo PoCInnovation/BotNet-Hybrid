@@ -1,27 +1,57 @@
 #include <set>
 #include <mutex>
 #include <condition_variable>
+#include <string>
 #include <thread>
- 
-#include <libupnpp/control/description.hxx>
 
+#include <libupnpp/control/description.hxx>
 #include <npupnp/upnp.h>
 #include <npupnp/upnpdebug.h>
 #include <npupnp/upnptools.h>
 
 #include <iostream>
-
-static int clctxt;
  
 std::set<std::string> locations;
 std::mutex locations_mutex;
 std::condition_variable locations_cv;
+
+static std::string service_ctlurl;
+static std::string service_evturl;
+static std::string service_type;
+
+static int clctxt;
 static bool searchdone;
 
-static int mycallback(Upnp_EventType etyp, const void *evt, void *ctxt)
+static struct Upnp_Discovery devdetails;
+
+const std::vector<std::pair<std::string, std::string>>
+runaction(UpnpClient_Handle hdl, const std::string& action_name,
+              const std::vector<std::pair<std::string, std::string>>& args)
+{
+    std::cerr << "Runaction. Service URL " << service_ctlurl << " action: " << action_name << "\n";
+
+    int errorcode;
+    std::string errdesc;
+    std::vector<std::pair<std::string, std::string>> responsedata;
+
+    int res = UpnpSendAction(
+        hdl, "", service_ctlurl, service_type,
+        action_name, args, responsedata, &errorcode, errdesc);
+    if (res != UPNP_E_SUCCESS) {
+        std::cerr << res << std::endl;
+        return responsedata;
+    }
+    std::cerr << "Response arg count: " << responsedata.size() << std::endl;
+    for (const auto &entry : responsedata) {
+        std::cerr << "[" << entry.first << "]->[" << entry.second << "]\n";
+    }
+    return responsedata;
+}
+
+static int mycallback(Upnp_EventType event_type, const void *evt, void *ctxt)
 {
     UpnpDiscovery *dsp = (UpnpDiscovery*)evt;
-    switch (etyp) {
+    switch (event_type) {
     case UPNP_DISCOVERY_ADVERTISEMENT_ALIVE:
         goto dldesc;
     case UPNP_DISCOVERY_ADVERTISEMENT_BYEBYE:
@@ -35,10 +65,22 @@ static int mycallback(Upnp_EventType etyp, const void *evt, void *ctxt)
         locations_cv.notify_all();
     }
     break;
+    case UPNP_EVENT_RECEIVED:
+    {
+        // General events from the services we subscribed to
+        struct Upnp_Event *evp = (struct Upnp_Event *)evt;
+        std::cerr << "Got upnp event for subscription " << evp->Sid <<
+            " seq " << evp->EventKey << " Changed:\n";
+        for (const auto& entry : evp->ChangedVariables) {
+            std::cerr << "[" << entry.first << "]->[" << entry.second << "]\n";
+        }
+    }
+    break;
+
     default:
-        std::cerr << "Received surprising event type " << etyp << "\n";
-        break;
-    }        
+        std::cerr << "Got event type " << event_type << "\n";
+    }
+
     return 0;
  
 dldesc:
@@ -75,8 +117,8 @@ int main(int argc, char **argv)
     std::cout << "IPV6 address: " << UpnpGetServerIp6Address() << "\n";
     std::cout << "Port: " << UpnpGetServerPort() << "\n";    
 
-    UpnpClient_Handle chdl;
-    success = UpnpRegisterClient(mycallback, &clctxt, &chdl);
+    UpnpClient_Handle hdl;
+    success = UpnpRegisterClient(mycallback, nullptr, &hdl);
     
     if (success != UPNP_E_SUCCESS) {
         std::cerr << "register client failed: " << success << " " <<
@@ -85,7 +127,7 @@ int main(int argc, char **argv)
     }
 
     int searchctxt;
-    success = UpnpSearchAsync(chdl, 3, "upnp:rootdevice", &searchctxt);
+    success = UpnpSearchAsync(hdl, 3, "upnp:rootdevice", &searchctxt);
 
     if (success != UPNP_E_SUCCESS) {
         std::cerr << "search async failed: " << success << " " <<
@@ -94,15 +136,17 @@ int main(int argc, char **argv)
     }
 
     std::unique_lock<std::mutex> locklocs(locations_mutex);
-    for (;;) {
+    while (true) {
         locations_cv.wait(locklocs);
-        if (searchdone) {
+        if (searchdone)
             break;
-        }
-        for (auto it = locations.begin(); it != locations.end();) {
+
+        for (auto it = locations.begin(); it != locations.end();
+            it = locations.erase(it)) {
             std::string data;
             std::string ct;
-            int success = UpnpDownloadUrlItem(*it, data, ct);
+
+            success = UpnpDownloadUrlItem(*it, data, ct);
             if (success != UPNP_E_SUCCESS) {
                 std::cerr << "UpnpDownloadUrlItem failed: " << success << " " <<
                     UpnpGetErrorMessage(success) << "\n";
@@ -112,15 +156,42 @@ int main(int argc, char **argv)
             UPnPClient::UPnPDeviceDesc desc(*it, data);
             if (!desc.ok) {
                 std::cout << "Description parse failed for " << *it << "\n";
-            } else {
-                std::cout << "Got " << data.size() <<
-                    "Bytes of description data. " << "Friendly name: " <<
-                    desc.friendlyName << "\n";
+                continue;
             }
-            it = locations.erase(it);
+            if (desc.friendlyName != "CastleNet CBV38Z4EN") continue;
+            std::cout << "Got " << data.size() <<
+                "Bytes of description data from " <<
+                desc.friendlyName << "\n";
+
+            service_type = desc.embedded[0].services[1].serviceType;
+            service_ctlurl = desc.URLBase + desc.embedded[0].services[1].controlURL;
+            service_evturl = desc.URLBase + desc.embedded[0].services[1].eventSubURL + ".xml";
+
+            int timeout = 3600;
+
+            Upnp_SID subsid;
+            UpnpSubscribe(hdl, service_evturl.c_str(), &timeout, subsid);            
+            std::string externalIpAddress = runaction(hdl, "GetExternalIPAddress",
+                std::vector<std::pair<std::string, std::string>>())[0].second;
+            std::vector<std::pair<std::string, std::string>> addPortMappingArgs {
+                {"NewRemoteHost", ""},
+                {"NewExternalPort", std::to_string(UpnpGetServerPort())},
+                {"NewProtocol", "TCP"},
+                {"NewInternalPort", std::to_string(UpnpGetServerPort())},
+                {"NewInternalClient", UpnpGetServerIpAddress()},
+                {"NewEnabled", "1"},
+                {"NewPortMappingDescription", "Port Mapping Description"},
+                {"NewLeaseDuration", std::to_string(timeout)},
+            };
+            runaction(hdl, "AddPortMapping", addPortMappingArgs);
         }
     }
-    sleep(2);
+    sleep(10);
+    runaction(hdl, "DeletePortMapping",
+        std::vector<std::pair<std::string, std::string>> {
+            {"NewRemoteHost", ""},
+            {"NewExternalPort", std::to_string(UpnpGetServerPort())},
+            {"NewProtocol", "TCP"}});
     UpnpFinish();
     return 0;
 }
