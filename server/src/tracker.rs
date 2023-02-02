@@ -1,3 +1,5 @@
+
+use tokio::sync::broadcast::Receiver;
 use tokio::{net::TcpStream, io::{BufReader, AsyncWriteExt, AsyncReadExt}};
 
 use crate::Victim;
@@ -25,4 +27,25 @@ pub async fn is_victim_listening(victim: &Victim) -> bool {
         return false;
     }
     true
+}
+
+pub async fn manage_tracker(_victim: &Victim, stream: &mut TcpStream, mut receiver: Receiver<String>) -> Result<(), Box<dyn std::error::Error>> {
+    stream.write_all(b"tracker\0").await?;
+    loop {
+        let message = receiver.recv().await?;
+        stream.write_all(message.as_bytes()).await?;
+        /* let mut buf_reader = BufReader::new(&mut stream);
+        let mut request: Vec<u8> = Vec::new();
+        buf_reader
+            .read_until(0, &mut request).await?;
+
+        let request = std::str::from_utf8(&request)?; */
+        // let content = request.split_once('\n');
+
+        // mean it should propagate the request to all trackers
+        /* if let Some((first, rest)) = content {
+            if first == "PROP" { */
+            /* }
+        } */
+    }
 }

