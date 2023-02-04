@@ -9,7 +9,7 @@ char fetch_data_server(asio::ip::tcp::socket& socket, asio::error_code& ec)
 
     if (!ec)
         return bytesRead;
-    std::cout << "Error:" << ec.message() << '\n';
+    std::cout << "Error:" << ec.message() << std::endl;
     return 0;
 }
 
@@ -36,6 +36,6 @@ int server(void)
         }
     }
     server_socket.close();
-    std::cout << "Server closed";
+    std::cout << "Server closed" << std::endl;
     return 0;
 }

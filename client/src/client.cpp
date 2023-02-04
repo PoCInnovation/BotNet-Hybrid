@@ -9,7 +9,7 @@ void send_data_client(asio::ip::tcp::socket &socket, std::string message, asio::
     if (!ec) {
         std::cout << "Sent: \"" << message << "\"\n";
     } else {
-        std::cout << "Send failed: " << ec.message();
+        std::cout << "Send failed: " << ec.message() << std::endl;
         return;
     }
 }
@@ -28,7 +28,7 @@ int fetch_data_client(asio::ip::tcp::socket &socket, asio::error_code ec)
             server();
         }
     } else {
-        std::cout << "Receive failed: " << ec.message();
+        std::cout << "Receive failed: " << ec.message() << std::endl;
         return 1;
     }
     return 0;
@@ -40,10 +40,10 @@ bool connect_client_socket(asio::ip::tcp::socket &socket, asio::error_code ec)
 
     socket.connect(endpoint, ec);
     if (!ec) {
-        std::cout << "Socket connected\n";
+        std::cout << "Socket connected" << std::endl;
         return true;
     } else {
-        std::cout << "Error: " << ec.message();
+        std::cout << "Error: " << ec.message() << std::endl;
         return false;
     }
 }
