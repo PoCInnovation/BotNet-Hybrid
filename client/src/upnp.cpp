@@ -15,9 +15,9 @@ std::set<std::string> locations;
 std::mutex locations_mutex;
 std::condition_variable locations_cv;
 
-static std::string service_ctlurl;
-static std::string service_evturl;
-static std::string service_type;
+static std::string service_ctlurl = "";
+static std::string service_evturl = "";
+static std::string service_type = "";
 
 static int clctxt;
 static bool searchdone;
@@ -93,7 +93,7 @@ dldesc:
 int main(int argc, char **argv)
 {
     if (argc != 2) {
-        std::cerr << "Usage: npupnp_init <ifname>\n";
+        std::cerr << "Usage: ./upnp INTERFACE\n";
         return 1;
     }
     const char *ifname = argv[1];
@@ -158,14 +158,33 @@ int main(int argc, char **argv)
                 std::cout << "Description parse failed for " << *it << "\n";
                 continue;
             }
-            if (desc.friendlyName != "CastleNet CBV38Z4EN") continue;
             std::cout << "Got " << data.size() <<
                 "Bytes of description data from " <<
                 desc.friendlyName << "\n";
 
-            service_type = desc.embedded[0].services[1].serviceType;
-            service_ctlurl = desc.URLBase + desc.embedded[0].services[1].controlURL;
-            service_evturl = desc.URLBase + desc.embedded[0].services[1].eventSubURL + ".xml";
+            for (int i = 0; i < desc.services.size(); ++i) {
+                std::cout << desc.services[i].serviceId << std::endl;
+                if (desc.services[i].serviceId == "urn:upnp-org:serviceId:WANCommonIFC1") {
+                    service_type = desc.services[i].serviceType;
+                    service_ctlurl = desc.URLBase + desc.services[i].controlURL;
+                    service_evturl = desc.URLBase + desc.services[i].eventSubURL + ".xml";
+                    break;
+                }
+            }
+            if (service_type == "") {
+                for (int j = 0; j < desc.embedded.size(); ++j) {
+                    for (int i = 0; i < desc.embedded[j].services.size(); ++i) {
+                        std::cout << desc.services[i].serviceId << std::endl;
+                        if (desc.embedded[j].services[i].serviceId == "urn:upnp-org:serviceId:WANCommonIFC1") {
+                            service_type = desc.embedded[j].services[i].serviceType;
+                            service_ctlurl = desc.URLBase + desc.embedded[j].services[i].controlURL;
+                            service_evturl = desc.URLBase + desc.embedded[j].services[i].eventSubURL + ".xml";
+                            break;
+                        }
+                    }
+                }
+            }
+            if (service_type == "") continue;
 
             int timeout = 3600;
 
