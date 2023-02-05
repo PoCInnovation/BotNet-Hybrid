@@ -1,5 +1,6 @@
 # Requirements
-[libnpupnp-5.0.0](https://www.lesbonscomptes.com/upmpdcli/pages/downloads.html) c++ library.
+- [libnpupnp-5.0.0](https://www.lesbonscomptes.com/upmpdcli/pages/downloads.html) C++ library.
+- [asio-1.24.0](https://sourceforge.net/projects/asio/files/asio/1.24.0%20%28Stable%29/) (non boost) C++ library.
 
 # Run
 ## Run upnp port mapping
