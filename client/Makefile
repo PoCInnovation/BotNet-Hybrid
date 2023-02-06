@@ -1,6 +1,8 @@
-SRC		 	=	src/client.cpp	\
+SRC		 	=	src/client.cpp			\
 				src/server.cpp
-SRC_UPNP 	=	src/upnp.cpp
+SRC_UPNP 	=	src/upnp.cpp			\
+				src/upnp_init.cpp		\
+				src/upnp_actions.cpp
 OBJ			=	$(SRC:.cpp=.o)
 OBJ_UPNP	=	$(SRC_UPNP:.cpp=.o)
 NAME 		= 	client_server
@@ -22,7 +24,7 @@ upnp:
 
 clean:
 	rm -f $(OBJ)
-	rm -f $(UPNP_OBJ)
+	rm -f $(OBJ_UPNP)
 
 fclean: clean
 	rm -f $(NAME)
