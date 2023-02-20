@@ -24,10 +24,11 @@
         };
     private:
         Type _type;
-        asio::io_service _io_service;
-        asio::ip::tcp::socket _socket = asio::ip::tcp::socket(_io_service);
+        asio::ip::tcp::socket &_socket;
         void connectToServer();
     public:
+        TypeGuesser(asio::ip::tcp::socket &socket)
+            : _socket(socket) {}
         void connect(const std::string &ip);
         Type type() { return _type; }
     };
