@@ -3,11 +3,18 @@
 
     #define UPNP_PORT   49152
 
-    #include <mutex>    
     #include <libupnpp/control/description.hxx>
     #include <npupnp/upnp.h>
     #include <npupnp/upnpdebug.h>
     #include <npupnp/upnptools.h>
+
+    #include <iostream>
+    #include <string>
+    #include <set>
+    #include <mutex>
+    #include <condition_variable>
+    #include <string>
+    #include <thread>
 
 class UpnpBotnet {
 private:
