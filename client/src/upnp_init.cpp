@@ -14,8 +14,10 @@ UpnpBotnet::UpnpBotnet(const char *ifname): _ifname(ifname)
 
 UpnpBotnet::~UpnpBotnet()
 {
-    // Temporary sleep to have time to check if port is opened
-    sleep(20);
+}
+
+void UpnpBotnet::ClosePortAndFinishUpnp()
+{
     runaction(_hdl, "DeletePortMapping",
         std::vector<std::pair<std::string, std::string>> {
         {"NewRemoteHost", ""},
