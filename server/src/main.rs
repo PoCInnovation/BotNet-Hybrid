@@ -29,7 +29,8 @@ async fn main() {
     info!("Server started");
     let tx1 = tx.clone();
     tokio::spawn(async move {
-        tx1.send("COMMAND".to_string()).expect("Mauvaise commande");
+        // tx1.send("COMMAND".to_string()).expect("Mauvaise commande");
+        // tx1.send("COMMAND".to_string()).unwrap();
         thread::sleep(Duration::from_secs(10));
     });
     loop {
