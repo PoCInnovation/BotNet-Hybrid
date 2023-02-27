@@ -45,7 +45,8 @@ async fn main() {
             if let Some(victim) = victim {
                 insert_victim_db(&victim, &addr, &victims_collection).await;
                 let receiver = tx.subscribe();
-                manage_victim(victim, &mut stream, &victims_collection, receiver).await;
+                // manage_victim(&victim, &mut stream, &victims_collection, receiver).await;
+                info!("The victim: {} disconnected", &victim.ip.ip());
             } else {
                 info!("{} tried to establish a connection but failed the test", addr.ip().to_string());
             }
@@ -53,7 +54,7 @@ async fn main() {
     }
 }
 
-async fn manage_victim(victim: Victim, mut stream: &mut TcpStream, victims_collection: &Collection<VictimDb>, receiver: Receiver<String>) {
+async fn manage_victim(victim: &Victim, mut stream: &mut TcpStream, victims_collection: &Collection<VictimDb>, receiver: Receiver<String>) {
     match victim.victim_type {
         VictimType::Bot => {
             if let Err(err) = bot::manage_bot(&victim, &mut stream, &victims_collection).await {

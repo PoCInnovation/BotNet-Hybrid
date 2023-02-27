@@ -4,6 +4,7 @@
 #include <asio.hpp>
 #include <asio/write.hpp>
 #include <chrono>
+#include <exception>
 #include <iostream>
 #include <thread>
 
@@ -13,13 +14,20 @@ static void server(void)
     asio::io_service io_service;
     asio::ip::tcp::acceptor acceptor_server(io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), 3612));
     asio::ip::tcp::socket server_socket(io_service);
-    auto until = std::chrono::system_clock::now() + std::chrono::seconds(5);
+    asio::io_context context;
+    std::promise<bool> promise;
+    auto until = std::chrono::system_clock::now() + std::chrono::seconds(10);
     auto timer = [&]()
     {
         while (true) {
+            if (!acceptor_server.is_open())
+                break;
             if (std::chrono::system_clock::now() > until) {
-                acceptor_server.cancel();
-                server_socket.cancel();
+                if (!server_socket.is_open()) {
+                    acceptor_server.cancel();
+                    acceptor_server.close();
+                }
+                promise.set_value(false);
                 std::cerr << "Reached end of timer, probably not upnp compatible" << std::endl;
                 break;
             }
@@ -28,20 +36,27 @@ static void server(void)
     };
     auto thread = std::thread(timer);
     thread.detach();
-    acceptor_server.accept(server_socket);
-    char success_buffer[1] = {9};
-    char buffer[1] = {0};
+    acceptor_server.async_accept([&](const asio::error_code &ec, asio::ip::tcp::socket peer) {
+        std::cout << "coucou\n";
+        if (!ec) {
+            std::cout << "ec\n";
+            char success_buffer[1] = {9};
+            char buffer[1] = {0};
+            asio::read(peer, asio::buffer(buffer, 1));
 
-    if (!ec) {
-        server_socket.cancel();
-        asio::read(server_socket, asio::buffer(buffer, 1));
-
-        if (buffer[0] == 1) {
-            asio::write(server_socket, asio::buffer(success_buffer, 1));
+            if (buffer[0] == 1) {
+                asio::write(peer, asio::buffer(success_buffer, 1));
+            }
         }
-    }
-    server_socket.close();
+        promise.set_value(true);
+     });
+    io_service.run();
+    auto val = promise.get_future().get();
     std::cout << "Server closed\n";
+    if (val == false) {
+        throw std::exception();
+    }
+
 }
 
 void TypeGuesser::connect(const std::string &ip)
@@ -49,7 +64,7 @@ void TypeGuesser::connect(const std::string &ip)
     asio::ip::tcp::endpoint endpoint(asio::ip::address::from_string(ip), 9570);
     asio::error_code ec;
     // wlan0 = Temporary (need getInterface())
-    UpnpBotnet Upnp("wlan0");
+    UpnpBotnet Upnp("wlp4s0");
 
     _socket.connect(endpoint, ec);
     if (ec) {
@@ -73,6 +88,8 @@ void TypeGuesser::connect(const std::string &ip)
         _type = Type::Tracker;
     } catch (std::exception &e) {
         Upnp.ClosePortAndFinishUpnp();
+        std::cout << "Erreur\n";
+        std::cout << e.what() << "\n";
         _type = Type::Bot;
     }
 }
