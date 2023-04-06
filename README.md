@@ -1,24 +1,36 @@
 # BotNet Hybrid
 
-[Project's description]
+A BotNet, is a type of virus that repeats in a chain over a network(s) to infect all available devices. Once these infected devices they become "bots" that will be at the service of the botmater and it will be able to give orders to its "army" as to launch attacks (DDOS) or other use.
+The goal of this project is therefore to create and imagine our own centralized, descentralised BotNet hybrid structure.
 
 ## How does it work?
 
-[Explain how this project is working]
+Once infected, a client can become a server if requirements are met, ...
 
 ## Getting Started
 
 ### Installation
 
-[Explain how to install all of the project's dependencies]
+#### Requirements
+- [libnpupnp-5.0.0](https://www.lesbonscomptes.com/upmpdcli/pages/downloads.html) C++ library.
+- [asio-1.24.0](https://sourceforge.net/projects/asio/files/asio/1.24.0%20%28Stable%29/) (non boost) C++ library.
 
 ### Quickstart
 
-[Explain how to run this project]
+#### Server
+```
+cargo run
+```
+
+#### Client
+```
+make
+./???
+```
 
 ### Usage
 
-[Explain how to use this project]
+Host the server, client are runned on bots.
 
 ## Get involved
 
