@@ -1,11 +1,15 @@
 # BotNet Hybrid
 
 A BotNet, is a type of virus that repeats in a chain over a network(s) to infect all available devices. Once these infected devices they become "bots" that will be at the service of the botmater and it will be able to give orders to its "army" as to launch attacks (DDOS) or other use.
-The goal of this project is therefore to create and imagine our own centralized, descentralised BotNet hybrid structure.
+The goal of this project is therefore to create and imagine our own centralized, decentralised BotNet hybrid structure.
 
 ## How does it work?
 
-Once infected, a client can become a server if requirements are met and communicate with the other bots. The bots communicates via p2p
+Once infected, clients connect to the central server and get their role assigned :
+- Tracker : The client passed all tests and seem ideal to become a server, its role will be to be a relay between the central server and bots, it will propagate all commands from the central server.
+- Bot : The bot only communicates one time with the central server which will send him a list of trackers ips and ports, then he'll act like a usual bot and execute commands he receives from the tracker. If the central server is down he uses cached tracker ips from previous connections.
+
+If the central server is down, the magic trick is that an infiltrated bot can send the new central server ip to a tracker, the tracker can propagate the information to all bots and trackers across the network, the ip should be signed by a pgp key to make sure nobody can destroy the network.
 
 ## Getting Started
 
