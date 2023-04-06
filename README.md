@@ -5,7 +5,7 @@ The goal of this project is therefore to create and imagine our own centralized,
 
 ## How does it work?
 
-Once infected, a client can become a server if requirements are met, ...
+Once infected, a client can become a server if requirements are met and communicate with the other bots. The bots communicates via p2p
 
 ## Getting Started
 
@@ -25,7 +25,7 @@ cargo run
 #### Client
 ```
 make
-./???
+./client
 ```
 
 ### Usage
