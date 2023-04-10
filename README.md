@@ -29,8 +29,8 @@ If you're interested in how the project is organized at a higher level, please c
 ## Our PoC team :heart:
 
 Developers
-| [<img src="https://github.com/Nestyles.png?size=85" width=85><br><sub>Tom Sancho</sub>](https://github.com/Nestyles) | [<img src="https://github.com/TristanMasselot.png?size=85" width=85><br><sub>Tristan Masselot</sub>](https://github.com/TristanMasselot) 
-| :---: | :---: 
+| [<img src="https://github.com/Nestyles.png?size=85" width=85><br><sub>Tom Sancho</sub>](https://github.com/Nestyles) | [<img src="https://github.com/TristanMasselot.png?size=85" width=85><br><sub>Tristan Masselot</sub>](https://github.com/TristanMasselot) | [<img src="https://github.com/Tchips46tek.png?size=85" width=85><br><sub>Leo Outmizguine</sub>](https://github.com/Tchips46tek) 
+| :---: | :---: | :---: |
 
 Manager
 | [<img src="https://github.com/lennyvong.png?size=85" width=85><br><sub>Lenny Vongphouthone</sub>](https://github.com/lennyvong)
