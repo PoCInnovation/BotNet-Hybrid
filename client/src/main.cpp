@@ -27,6 +27,7 @@ void tracker(asio::ip::tcp::socket &socket)
     });
     while (true) {
         asio::read_until(socket, asio::dynamic_buffer(received_buffer), "\r\n");
+        std::cout << "Sending message to all bots: " << received_buffer << std::endl;
         for (auto &client : clients) {
             asio::write(client, asio::buffer(received_buffer));
         }
@@ -39,7 +40,7 @@ int main()
     asio::ip::tcp::socket mainServer(io_service);
     TypeGuesser guesser(mainServer);
 
-    guesser.connect("192.168.0.12");
+    guesser.connect("192.168.1.29");
     std::cout << "guesser: " << static_cast<int>(guesser.type()) << std::endl;
     switch (guesser.type()) {
         case TypeGuesser::Type::Bot:

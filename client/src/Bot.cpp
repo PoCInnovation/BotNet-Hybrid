@@ -28,8 +28,10 @@ Bot::Bot(asio::ip::tcp::socket &socket) : _main_server(socket),
 
 void Bot::connectToTracker()
 {
+  std::cerr << "Hello\n";
     for (auto tracker : _trackers) {
         try {
+          std::cerr << tracker << std::endl;
             asio::ip::tcp::endpoint endpoint(asio::ip::address::from_string(tracker), 3612);
             _connection_tracker.connect(endpoint);
             break;
