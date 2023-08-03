@@ -1,0 +1,730 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta name="robots" content="none"> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <title>Assurance Maladie</title>
+  <style type="text/css">
+         /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
+         #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */
+         .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
+         .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */
+         body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
+         table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */
+         img{-ms-interpolation-mode:bicubic;} /* Allow smoother rendering of resized image in Internet Explorer */
+         /* /\/\/\/\/\/\/\/\/ RESET STYLES /\/\/\/\/\/\/\/\/ */
+         body{margin:0; padding:0;}
+         img{border:0; height:auto; line-height:0; outline:none; text-decoration:none;vertical-align: middle;}
+         table{border-collapse:collapse !important;}
+         body, #bodyTable, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;}
+         /* /\/\/\/\/\/\/\/\/ TEMPLATE STYLES /\/\/\/\/\/\/\/\/ */
+         /* ========== Page Styles ========== */
+         body, #body_style {
+           width:100%!important;
+           -webkit-text-size-adjust:100%;
+           -ms-text-size-adjust:100%;
+           margin:0;
+           padding:0;
+           height:100% !important;
+           width:100% !important;
+           min-height:1000px;
+           color:#404040;
+           font-family:Arial, Helvetica, sans-serif;
+           font-size:12px;
+         }
+         #bodyCell{padding:20px;}
+         #templateContainer{
+           width:700px;
+           min-width:700px; /* For gmail android */
+         }
+         /**
+         * @tab Page
+         * @section background style
+         * @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+         * @theme page
+         */
+         body, #bodyTable{
+           /*@editable*/ background-color:#ffffff;
+         }
+         /**
+         * @tab Page
+         * @section background style
+         * @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+         * @theme page
+         */
+         #bodyCell{
+           /*@editable*/ border-top:4px solid #BBBBBB;
+         }
+         /**
+         * @tab Page
+         * @section heading 1
+         * @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
+         * @style heading 1
+         */
+         h1{
+           /*@editable*/ color:#202020 !important;
+           display:block;
+           /*@editable*/ font-family:Helvetica;
+           /*@editable*/ font-size:26px;
+           /*@editable*/ font-style:normal;
+           /*@editable*/ font-weight:bold;
+           /*@editable*/ line-height:100%;
+           /*@editable*/ letter-spacing:normal;
+           margin-top:0;
+           margin-right:0;
+           margin-bottom:10px;
+           margin-left:0;
+           /*@editable*/ text-align:left;
+         }
+         /**
+         * @tab Page
+         * @section heading 2
+         * @tip Set the styling for all second-level headings in your emails.
+         * @style heading 2
+         */
+         h2{
+           /*@editable*/ color:#404040 !important;
+           display:block;
+           /*@editable*/ font-family:Helvetica;
+           /*@editable*/ font-size:20px;
+           /*@editable*/ font-style:normal;
+           /*@editable*/ font-weight:bold;
+           /*@editable*/ line-height:100%;
+           /*@editable*/ letter-spacing:normal;
+           margin-top:0;
+           margin-right:0;
+           margin-bottom:10px;
+           margin-left:0;
+           /*@editable*/ text-align:left;
+         }
+         /**
+         * @tab Page
+         * @section heading 3
+         * @tip Set the styling for all third-level headings in your emails.
+         * @style heading 3
+         */
+         h3{
+           /*@editable*/ color:#606060 !important;
+           display:block;
+           /*@editable*/ font-family:Helvetica;
+           /*@editable*/ font-size:16px;
+           /*@editable*/ font-style:italic;
+           /*@editable*/ font-weight:normal;
+           /*@editable*/ line-height:100%;
+           /*@editable*/ letter-spacing:normal;
+           margin-top:0;
+           margin-right:0;
+           margin-bottom:10px;
+           margin-left:0;
+           /*@editable*/ text-align:left;
+         }
+         /**
+         * @tab Page
+         * @section heading 4
+         * @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
+         * @style heading 4
+         */
+         h4{
+           /*@editable*/ color:#808080 !important;
+           display:block;
+           /*@editable*/ font-family:Helvetica;
+           /*@editable*/ font-size:14px;
+           /*@editable*/ font-style:italic;
+           /*@editable*/ font-weight:normal;
+           /*@editable*/ line-height:100%;
+           /*@editable*/ letter-spacing:normal;
+           margin-top:0;
+           margin-right:0;
+           margin-bottom:10px;
+           margin-left:0;
+           /*@editable*/ text-align:left;
+         }
+         /* ========== Header Styles ========== */
+         /**
+         * @tab Header
+         * @section preheader style
+         * @tip Set the background color and bottom border for your email's preheader area.
+         * @theme header
+         */
+         #templatePreheader{
+           background-color:#FFFFFF;
+         }
+         /**
+         * @tab Header
+         * @section preheader text
+         * @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
+         */
+         .preheaderContent{
+           /*@editable*/ color:#808080;
+           /*@editable*/ font-family:Helvetica;
+           /*@editable*/ font-size:10px;
+           /*@editable*/ line-height:125%;
+           /*@editable*/ text-align:left;
+         }
+         /**
+         * @tab Header
+         * @section preheader link
+         * @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
+         */
+         .preheaderContent a:link, .preheaderContent a:visited, /* Yahoo! Mail Override */ .preheaderContent a .yshortcuts /* Yahoo! Mail Override */{
+           /*@editable*/ color:#606060;
+           /*@editable*/ font-weight:normal;
+           /*@editable*/ text-decoration:underline;
+         }
+         /**
+         * @tab Header
+         * @section header style
+         * @tip Set the background color and borders for your email's header area.
+         * @theme header
+         */
+         #templateHeader{
+           /*@editable*/ background-color:#F4F4F4;
+           /*@editable*/ border-top:1px solid #FFFFFF;
+           /*@editable*/ border-bottom:1px solid #CCCCCC;
+         }
+         /**
+         * @tab Header
+         * @section header text
+         * @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
+         */
+         .headerContent{
+           /*@editable*/ color:#505050;
+           /*@editable*/ font-family:Helvetica;
+           /*@editable*/ font-size:20px;
+           /*@editable*/ font-weight:bold;
+           /*@editable*/ line-height:100%;
+           /*@editable*/ padding-top:0;
+           /*@editable*/ padding-right:0;
+           /*@editable*/ padding-bottom:0;
+           /*@editable*/ padding-left:0;
+           /*@editable*/ text-align:left;
+           /*@editable*/ vertical-align:middle;
+         }
+         /**
+         * @tab Header
+         * @section header link
+         * @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
+         */
+         .headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
+           /*@editable*/ color:#EB4102;
+           /*@editable*/ font-weight:normal;
+           /*@editable*/ text-decoration:underline;
+         }
+         #headerImage{
+           height:auto;
+           max-width:600px;
+         }
+         /* ========== Column Styles ========== */
+         .templateColumnContainer{width:260px;}
+         /**
+         * @tab Columns
+         * @section column style
+         * @tip Set the background color and borders for your email's column area.
+         */
+         #templateColumns{
+           /*@editable*/ background-color:#F4F4F4;
+           /*@editable*/ border-top:1px solid #FFFFFF;
+           /*@editable*/ border-bottom:1px solid #CCCCCC;
+         }
+         /**
+         * @tab Columns
+         * @section left column text
+         * @tip Set the styling for your email's left column content text. Choose a size and color that is easy to read.
+         */
+         .leftColumnContent{
+           /*@editable*/ color:#505050;
+           /*@editable*/ font-family:Helvetica;
+           /*@editable*/ font-size:14px;
+           /*@editable*/ line-height:150%;
+           padding-top:0;
+           padding-right:20px;
+           padding-bottom:20px;
+           padding-left:20px;
+           /*@editable*/ text-align:left;
+         }
+         /**
+         * @tab Columns
+         * @section left column link
+         * @tip Set the styling for your email's left column content links. Choose a color that helps them stand out from your text.
+         */
+         .leftColumnContent a:link, .leftColumnContent a:visited, /* Yahoo! Mail Override */ .leftColumnContent a .yshortcuts /* Yahoo! Mail Override */{
+           /*@editable*/ color:#EB4102;
+           /*@editable*/ font-weight:normal;
+           /*@editable*/ text-decoration:underline;
+         }
+         /**
+         * @tab Columns
+         * @section right column text
+         * @tip Set the styling for your email's right column content text. Choose a size and color that is easy to read.
+         */
+         .rightColumnContent{
+           /*@editable*/ color:#505050;
+           /*@editable*/ font-family:Helvetica;
+           /*@editable*/ font-size:14px;
+           /*@editable*/ line-height:150%;
+           padding-top:0;
+           padding-right:20px;
+           padding-bottom:20px;
+           padding-left:20px;
+           /*@editable*/ text-align:left;
+         }
+         /**
+         * @tab Columns
+         * @section right column link
+         * @tip Set the styling for your email's right column content links. Choose a color that helps them stand out from your text.
+         */
+         .rightColumnContent a:link, .rightColumnContent a:visited, /* Yahoo! Mail Override */ .rightColumnContent a .yshortcuts /* Yahoo! Mail Override */{
+           /*@editable*/ color:#EB4102;
+           /*@editable*/ font-weight:normal;
+           /*@editable*/ text-decoration:underline;
+         }
+         .leftColumnContent img, .rightColumnContent img{
+           display:inline;
+           height:auto;
+           max-width:260px;
+         }
+         /* ========== Footer Styles ========== */
+         /**
+         * @tab Footer
+         * @section footer style
+         * @tip Set the background color and borders for your email's footer area.
+         * @theme footer
+         */
+         #templateFooter{
+           /*@editable*/ background-color:#F4F4F4;
+           /*@editable*/ border-top:1px solid #FFFFFF;
+         }
+         /**
+         * @tab Footer
+         * @section footer text
+         * @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
+         * @theme footer
+         */
+         .footerContent{
+           /*@editable*/ color:#808080;
+           /*@editable*/ font-family:Helvetica;
+           /*@editable*/ font-size:10px;
+           /*@editable*/ line-height:150%;
+           padding-top:20px;
+           padding-right:20px;
+           padding-bottom:20px;
+           padding-left:20px;
+           /*@editable*/ text-align:left;
+         }
+         /**
+         * @tab Footer
+         * @section footer link
+         * @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
+         */
+         .footerContent a:link, .footerContent a:visited, /* Yahoo! Mail Override */ .footerContent a .yshortcuts, .footerContent a span /* Yahoo! Mail Override */{
+           /*@editable*/ color:#606060;
+           /*@editable*/ font-weight:normal;
+           /*@editable*/ text-decoration:underline;
+         }
+         .headerLeftColumn{
+           width: 280px;
+         }
+         .headerLeftColumn img{
+           width: 100% !important;
+         }
+         .headerRightColumn{
+           width: 420px;
+         }
+         .headerRightColumn img{
+           /*width: 100% !important;*/
+         }
+         .headerBorderBottom{
+           width: 100% !important;
+         }
+         .headerBorderBottom img{
+           width: 100% !important;
+           height: 31px !important;
+         }
+         .containerLeftColumn{
+           width: 424px;
+         }
+         .containerLeftColumn table{
+           width: 100%;
+         }
+         .containerLeftColumn .spacer{
+           width: 100%;
+         }
+         .containerRightColumn{
+           width: 207px;
+         }
+         .containerRightColumn table{
+           width: 100%;
+         }
+         .containerRightColumn .spacer{
+           width: 100%;
+         }
+         .footerRightColumn{
+           width: 351px;
+         }
+         .footerLeftColumn{
+           width: 211px;
+         }
+         .footerLeftColumn a{
+           display: inline-block !important;
+           border: none !important;
+         }
+         .mobileShow{
+           display: none;
+         }
+         /* /\/\/\/\/\/\/\/\/ MOBILE STYLES /\/\/\/\/\/\/\/\/ */
+               @media only screen and (max-width: 480px){
+           /* /\/\/\/\/\/\/ CLIENT-SPECIFIC MOBILE STYLES /\/\/\/\/\/\/ */
+           body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:none !important;} /* Prevent Webkit platforms from changing default text sizes */
+                   body{width:100% !important; min-width:100% !important;} /* Prevent iOS Mail from adding padding to the body */
+           /* /\/\/\/\/\/\/ MOBILE RESET STYLES /\/\/\/\/\/\/ */
+           #bodyCell{padding:10px !important;}
+           /* /\/\/\/\/\/\/ MOBILE TEMPLATE STYLES /\/\/\/\/\/\/ */
+           /* ======== Page Styles ======== */
+           /**
+           * @tab Mobile Styles
+           * @section template width
+           * @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
+           */
+           #templateContainer{
+             max-width:700px !important;
+             width:100% !important;
+             min-width: 0px !important;
+           }
+           .mobileHide{
+             display: none !important;
+             width: 0px !important;
+             visibility: hidden !important;
+           }
+           .mobileShow{
+             display : block !important;
+             width : 100% !important;
+             overflow : visible !important;
+             float : none !important;
+           }
+           .headerLeftColumn{
+             width: 0px !important;
+           }
+           .headerRightColumn{
+             width: 100% !important;
+             max-width: 100% !important;
+             display: block !important;
+           }
+           .containerLeftColumn, .containerRightColumn{
+             width: 100% !important;
+             display: block !important;
+           }
+           .btn-account img{
+             width: 100% !important;
+             height: auto !important;
+             max-width: 191px !important;
+           }
+           .footerRightColumn, .footerLeftColumn{
+             width: 100% !important;
+             display: block !important;
+           }
+           /* ======== Header Styles ======== */
+           /**
+           * @tab Mobile Styles
+           * @section header image
+           * @tip Make the main header image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+           */
+           #headerImage{
+             height:auto !important;
+             /*@editable*/ max-width:600px !important;
+             /*@editable*/ width:100% !important;
+           }
+           /**
+           * @tab Mobile Styles
+           * @section header text
+           * @tip Make the header content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+           */
+           .headerContent{
+             /*@editable*/ font-size:20px !important;
+             /*@editable*/ line-height:125% !important;
+           }
+           /* ======== Column Styles ======== */
+           .templateColumnContainer{display:block !important; width:100% !important;}
+           /**
+           * @tab Mobile Styles
+           * @section column image
+           * @tip Make the column image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+           */
+           .columnImage{
+             height:auto !important;
+             /*@editable*/ max-width:260px !important;
+             /*@editable*/ width:100% !important;
+           }
+           /**
+           * @tab Mobile Styles
+           * @section left column text
+           * @tip Make the left column content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+           */
+           .leftColumnContent{
+             /*@editable*/ font-size:16px !important;
+             /*@editable*/ line-height:125% !important;
+           }
+           /**
+           * @tab Mobile Styles
+           * @section right column text
+           * @tip Make the right column content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+           */
+           .rightColumnContent{
+             /*@editable*/ font-size:16px !important;
+             /*@editable*/ line-height:125% !important;
+           }
+           /* ======== Footer Styles ======== */
+           /**
+           * @tab Mobile Styles
+           * @section footer text
+           * @tip Make the body content text larger in size for better readability on small screens.
+           */
+           .footerContent{
+             /*@editable*/ font-size:14px !important;
+             /*@editable*/ line-height:115% !important;
+           }
+           .footerContent a{display:block !important;} /* Place footer social and utility links on their own lines, for easier access */
+         }
+       </style>
+ </head>
+ <body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;margin: 0;padding: 0;min-height: 1000px;color: #404040;font-family: Arial, Helvetica, sans-serif;font-size: 12px;background-color: #ffffff;height: 100% !important;width: 100% !important;">
+  <table id="templateContainer" width="700" align="center" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 700px;min-width: 700px;border-collapse: collapse !important;">
+   <tbody>
+    <tr>
+     <td align="center" height="30" bgcolor="#ffffff" style="color: #666666;font-size: 12px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> L'Assurance Maladie vous informe </td>
+    </tr>
+    <tr>
+     <td align="center" height="30" bgcolor="#ffffff" style="color: #666666;font-size: 12px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> Le message ne s'affiche pas correctement ? <a href="https://stat.info.ameli.fr/" title="Page miroir en ligne" style="color: #106CB1;font-size: 12px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;">Cliquez ici</a> </td>
+    </tr>
+    <tr>
+     <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+       <tbody>
+        <tr>
+         <td valign="middle" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+          <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+           <tbody>
+            <tr>
+             <td class="headerLeftColumn mobileHide" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 280px;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/header-left.gif" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;width: 100% !important;"> </td>
+             <td class="headerRightColumn" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 420px;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+               <tbody>
+                <tr>
+                 <td width="143" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img width="143" src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/logo.gif" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                 <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+                   <tbody>
+                    <tr>
+                     <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                      <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+                       <tbody>
+                        <tr>
+                         <td width="49" height="39" class="mobileHide" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                         <td height="39" class="btn-account" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <a href="https://stat.info.ameli.fr/r/" title="Connexion au compte ameli" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;"><img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/btn-account.gif" style="height: 39px;-ms-interpolation-mode: bicubic;border: 0;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;" alt="Connexion au compte ameli"></a> </td>
+                         <td width="24" height="39" class="mobileHide" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                        </tr>
+                       </tbody>
+                      </table> </td>
+                    </tr>
+                    <tr>
+                     <td class="headerBorderBottom" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100% !important;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/header-bottom-right.gif" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: 31px !important;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;width: 100% !important;"> </td>
+                    </tr>
+                   </tbody>
+                  </table> </td>
+                </tr>
+               </tbody>
+              </table> </td>
+            </tr>
+           </tbody>
+          </table> </td>
+        </tr>
+       </tbody>
+      </table> </td>
+    </tr>
+    <tr>
+     <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+      <table width="100%" bgcolor="#f2f3f7" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+       <tbody>
+        <tr>
+         <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" width="24" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+         <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+          <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+           <tbody>
+            <tr>
+             <td class="containerLeftColumn" style="background-color: #ffffff;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 424px;">
+              <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border-collapse: collapse !important;">
+               <tbody>
+                <tr>
+                 <td class="spacer" height="20" style="background-color: #f2f3f7;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="20" style="background-color: #f2f3f7;-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;" alt=""> </td>
+                </tr>
+                <tr>
+                 <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                  <table width="100%" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border-collapse: collapse !important;">
+                   <tbody>
+                    <tr>
+                     <td height="20" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="20" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                    </tr>
+                    <tr>
+                     <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                      <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border-collapse: collapse !important;">
+                       <tbody>
+                        <tr>
+                         <td width="15" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" width="15" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                         <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                          <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border-collapse: collapse !important;">
+                           <tbody>
+                            <tr>
+                             <td style="font-size: 14px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                              <div style="Margin:0px 0px 15px 0px;">
+                               <p>Bonjour, </p>
+                               <p style="TEXT-ALIGN: justify">Vous avez perçu des prestations imposables en 2022&nbsp;(arrêt maladie, y compris arrêt drogatoire en lien avec l'épidémie de la Covid-19, congé maternité / paternité, accident de travail ou pension d'invalidité.) : ces montants doivent être déclarés aux impôts.</p>
+                               <p style="TEXT-ALIGN: justify">Pour vérifier l'exactitude des informations pré-remplies sur votre déclaration d'impôts, <strong>téléchargez dès maintenant votre relevé fiscal depuis votre compte ameli</strong>, rubrique "Mes Démarches".</p>
+                              </div> </td>
+                            </tr>
+                            <tr>
+                             <td height="15" style="background-color: #0062ac;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="15" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                            </tr>
+                            <tr>
+                             <td align="center" style="background-color: #0062ac;color: #ffffff;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <a href="https://stat.info.ameli.fr/" title="Tlchargez votre relev fiscal" style="color: white;text-decoration: none;font-size: 14px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;">Téléchargez votre relevé fiscal</a> </td>
+                            </tr>
+                            <tr>
+                             <td height="15" style="background-color: #0062ac;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="15" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                            </tr>
+                            <tr>
+                             <td style="font-size: 14px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                              <div style="Margin:15px 0px 0px 0px;">
+                               <p>Pour tout savoir sur les prestations d'assurance maladie imposables, <a title="relev fiscal" href="https://stat.info.ameli.fr" target="_blank">cliquez ici</a>.</p>                               <div>
+                                Cordialement,
+                               </div>
+                               <div>
+                                Votre correspondant de l'Assurance Maladie.
+                               </div>
+                              </div> </td>
+                            </tr>
+                           </tbody>
+                          </table> </td>
+                         <td width="15" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" width="15" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                        </tr>
+                       </tbody>
+                      </table> </td>
+                    </tr>
+                    <tr>
+                     <td height="20" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="20" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                    </tr>
+                   </tbody>
+                  </table> </td>
+                </tr>
+               </tbody>
+              </table> </td>
+             <td class="mobileHide" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" width="21" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+             <td class="containerRightColumn" valign="top" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 207px;">
+              <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border-collapse: collapse !important;">
+               <tbody>
+                <tr>
+                 <td class="spacer" height="20" style="background-color: #f2f3f7;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="20" style="background-color: #f2f3f7;-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;" alt=""> </td>
+                </tr>
+                <tr>
+                 <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                  <table width="100%" bgcolor="#EA9C00" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border-collapse: collapse !important;">
+                   <tbody>
+                    <tr>
+                     <td height="20" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/block-arrow-white.png" height="20" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                    </tr>
+                    <tr>
+                     <td style="color: #ffffff;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                      <table bgcolor="#EA9C00" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border-collapse: collapse !important;">
+                       <tbody>
+                        <tr>
+                         <td width="15" style="background-color: #EA9C00;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" width="15" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                         <td style="background-color: #EA9C00;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <p style="color: #ffffff;font-size: 14px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;"> <b>Sécuriser vos données c'est essentiel !</b> </p> <p style="color: #ffffff;font-size: 14px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;"> Votre <a href="https://stat.info.ameli.fr/">compte ameli</a> renforcée la sécurité de son mot de passe. Modifiez-le lors de votre prochaine connexion. </p> </td>
+                         <td width="15" style="background-color: #EA9C00;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" width="15" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                        </tr>
+                       </tbody>
+                      </table> </td>
+                    </tr>
+                    <tr>
+                     <td height="15" style="background-color: #EA9C00;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="15" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                    </tr>
+                   </tbody>
+                  </table> </td>
+                </tr>
+               </tbody>
+              </table> </td>
+            </tr>
+           </tbody>
+          </table> </td>
+         <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" width="24" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+        </tr>
+       </tbody>
+      </table> </td>
+    </tr>
+    <tr>
+     <td height="21" style="background-color: #f2f3f7;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="21" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+    </tr>
+    <tr>
+     <td height="21" style="background-color: #ffffff;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="21" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+    </tr>
+    <tr>
+     <td style="background-color: #789cb8;color: #ffffff;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+      <table bgcolor="#789cb8" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+       <tbody>
+        <tr>
+         <td height="15" style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="15" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+        </tr>
+        <tr>
+         <td style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+          <table bgcolor="#789cb8" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+           <tbody>
+            <tr>
+             <td width="30" style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" width="30" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+             <td style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+              <table bgcolor="#789cb8" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+               <tbody>
+                <tr>
+                 <td class="footerRightColumn" style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 351px;" valign="middle" align="center"> <span style="color:#ffffff;font-size:14px;">Rendez-vous sur <a href="https://stat.info.ameli.fr/" title="Portail assur sur ameli.fr" style="color: #ffffff;font-size: 14px;text-decoration: none;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;"><strong style="color:#ffffff;font-size:14px;">ameli.fr</strong></a> l'Assurance Maladie en ligne </span> </td>
+                 <td class="mobileHide" style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" width="68" valign="middle" align="center"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/footer-v-space.gif" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                 <td class="mobileShow" style="width: 0;overflow: hidden;float: left;display: none;background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" valign="middle" align="center"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/footer-h-space.gif" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+                 <td class="footerLeftColumn" style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 211px;" valign="middle" align="center">
+                  <table bgcolor="#789cb8" border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+                   <tbody>
+                    <tr>
+                     <td align="center" style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <span style="color:#ffffff;font-size:12px;">Tlchargez l'appli ameli </span> </td>
+                    </tr>
+                    <tr>
+                     <td style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                      <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-collapse: collapse !important;">
+                       <tbody>
+                        <tr>
+                         <td style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <a href="https://stat.info.ameli.fr/" title="Tlcharger l'application ameli sur l'App Store" style="color: #106cb1;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;display: inline-block !important;border: none !important;"><img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/app-appstore.gif" alt="Tlcharger l'application ameli sur l'App Store" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"></a> </td>
+                         <td style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <a href="https://stat.info.ameli.fr/" title="Tlcharger l'application ameli sur Google Play" style="color: #106cb1;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;display: inline-block !important;border: none !important;"><img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/app-googleplay.gif" alt="Tlcharger l'application ameli sur Google Play" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"></a> </td>
+                        </tr>
+                       </tbody>
+                      </table> </td>
+                    </tr>
+                   </tbody>
+                  </table> </td>
+                </tr>
+               </tbody>
+              </table> </td>
+             <td width="40" style="background-color: #789cb8;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" width="40" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+            </tr>
+           </tbody>
+          </table> </td>
+        </tr>
+        <tr>
+         <td height="5" style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <img src="https://extra1.ameli.fr/osmosep00/gstConEmaSpe3B/spacer.gif" height="5" alt="" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 0;outline: none;text-decoration: none;vertical-align: middle;"> </td>
+        </tr>
+       </tbody>
+      </table> </td>
+    </tr>
+    <tr>
+     <td style="-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"> <p style="color: #3b3b3b;font-size: 8px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;">Merci de ne pas rpondre 0 cet e-mail, adress automatiquement. Pour vous assurer de recevoir nos emails, nous vous recommandons d'ajouter l'adresse <a href="https://stat.info.ameli.fr/" style="color: #106cb1;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;">assurance-maladie@info.ameli.fr</a> 0 votre carnet d'adresses. <br>Pour ne plus recevoir nos e-mails, <a href="https://stat.info.ameli.fr/" title="Page de désabonnement" style="color: #106cb1;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;">cliquez ici</a>. <br>Pour la confidentialité et la sécurité de vos données personnelles, pensez à ne jamais communiquer vos codes confidentiels permettant l'accès aux services de l'Assurance Maladie.<br>Vos données personnelles conservées dans les systèmes d'information de l'Assurance Maladie sont utilisées exclusivement pour les missions confiées par la législation, l'amélioration de la qualité de la relation avec nos publics ou pour la promotion de nos offres de services. <br>Elles peuvent avoir été collectées auprès de nos partenaires institutionnels. <br>Elles sont conserves pour la dure nécessaire en fonction du traitement concerné. Cette dure peut dès lors être diffrente selon la nature des données, la finalité des traitements, ou les exigences légales ou réglementaires. <br>Conformément aux dispositions relatives à la protection des données personnelles, vous disposez d'un droit d'accès et de rectification aux données qui vous concernent, ainsi que d'un droit à certaines limitations de leur traitement. Le droit d'opposition s'applique, sauf à ce que l'Assurance Maladie justifie d'un motif légitime et imprieux comme un fondement légal obligeant leurs traitements. Ces droits s'exercent auprès du Directeur de votre caisse d'assurance maladie de rattachement en contactant le ou la délégué(e) à la protection des données. <br>Pour en savoir plus sur notre politique de protection des données, rendez-vous sur notre site d'information ameli.fr. <br>En cas de difficultés dans la mise en oeuvre des droits énoncs ci-dessus, toute personne peut introduire une réclamation auprès de la Commission Nationale Informatique et Libertés. <br>Ce message et ses éventuelles pièces jointes peuvent contenir des informations confidentielles ou privilégiées et elles ne doivent pas être diffusées, exploitées ou copiées sans autorisation. Si vous n'êtes pas destinataire du message merci de le détruire ainsi que toutes ses éventuelles pièces jointes. </p> </td>
+    </tr>
+    <!-- <tr>
+           <td height="1">
+             <img height="1" src="" alt="" />
+           </td>
+         </tr> -->
+   </tbody>
+  </table> 
+ </body>
+</html>
