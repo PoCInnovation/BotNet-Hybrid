@@ -61,6 +61,7 @@ static void server(void)
 
 }
 
+/// Connects to the server and asks if it should be tracker or bot
 void TypeGuesser::connect(const std::string &ip)
 {
     asio::ip::tcp::endpoint endpoint(asio::ip::address::from_string(ip), 9570);

