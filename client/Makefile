@@ -4,7 +4,7 @@ SRC		 	=	main.cpp	\
 				upnp_init.cpp	\
 				upnp_actions.cpp	\
 				Bot.cpp
-				
+
 SRC_UPNP 	=	upnp.cpp			\
 				upnp_init.cpp		\
 				upnp_actions.cpp

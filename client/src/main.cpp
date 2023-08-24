@@ -10,7 +10,7 @@ void bot(asio::ip::tcp::socket &socket)
     b.connectToTracker();
 }
 
-void tracker(asio::ip::tcp::socket &socket)
+[[noreturn]] void tracker(asio::ip::tcp::socket &socket)
 {
     asio::io_service io_service;
     asio::ip::tcp::acceptor acceptor_server(io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), 3612));
@@ -26,10 +26,12 @@ void tracker(asio::ip::tcp::socket &socket)
         }
     });
     while (true) {
-        asio::read_until(socket, asio::dynamic_buffer(received_buffer), "\r\n");
+        std::size_t n = asio::read_until(socket, asio::dynamic_buffer(received_buffer), "\r\n");
         std::cout << "Sending message to all bots: " << received_buffer << std::endl;
+        std::string line = received_buffer.substr(0, n);
+        received_buffer.erase(0, n);
         for (auto &client : clients) {
-            asio::write(client, asio::buffer(received_buffer));
+            asio::write(client, asio::buffer(line));
         }
     }
 }
